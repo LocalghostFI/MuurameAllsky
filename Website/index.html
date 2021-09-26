@@ -1,0 +1,102 @@
+<html prefix="og: http://ogp.me/ns#">
+<head>
+    <title>Muurame, Finland Allsky</title>
+    <meta property="og:title" content="Muurame, FI Allsky by LocalghostFI" />
+    <meta property="og:type" content="image/jpeg" />
+    <meta property="og:url" content="https://muurameallsky.fi" />
+    <meta property="og:image" content="https://muurameallsky.fi/image-resize.jpg" />
+      <meta name="keywords" content="Allsky, Finland, Muurame, Suomi, Keski-Suomi, Central Finland, Mixerboy24, LocalghostFI, Revontulet, Aurora Borealis, Muurameallsky, Kelikamera, Weather, ASI, ZWO">
+        <meta name="description" content="Allsky camera from Muurame, Finland. Last Allsky image. Powered By LocalghostFI">
+	<link rel="shortcut icon" type="image/png" href="https://cdn.mb24.fi/Logot/Allsky/Allsky_Logo_LGFI_logo.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="animate.min.css">
+    <link rel="stylesheet" type="text/css" href="allsky.css">
+    <link rel="stylesheet" type="text/css" href="allsky-font.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <!--[if lt IE 9]><script src="virtualsky/excanvas.min.js"></script><![endif]-->
+    <script src="virtualsky/virtualsky.js" type="text/javascript"></script>
+    <script src="ng-lodash.min.js"></script>
+    <script src="config.js"></script>
+    <script src="controller.js"></script>
+    
+    
+    <!-- Google Adsense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3879473724896932"
+     crossorigin="anonymous"></script>
+    
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122185200-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-122185200-3');
+</script>
+
+
+</head>
+<body ng-app="allsky" ng-controller="AppCtrl">
+	<div class="header">
+		<div class=title>{{title}}</div>
+		<div ng-show="forecast" class="forecast pull-right">
+			<span>Aurora activity: </span>
+			<span class="forecast-day" ng-repeat="(key,val) in forecast">{{key}}:
+				<span ng-class="getScale(val)"
+					  title="{{val}}/9">{{getScale(val)}}</span> </span>
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+	<div class="info animated slideInRight" ng-show="showInfo==true">
+		<ul>
+			<li><i class="fa fa-fw fa-map"></i>Location: <span>{{location}}</span></li>
+			<li><i class="fa fa-fw fa-map-marker"></i>Latitude: <span>{{latitude < 0 ? latitude * -1 + 'S' : latitude + 'N'}}</span></li>
+			<li><i class="fa fa-fw fa-map-marker"></i>Longitude: <span>{{longitude < 0 ? longitude * -1 + 'W' : longitude + 'E'}}</span></li>
+			<li><i class="fa fa-fw fa-camera"></i>Camera: <span>{{camera}}</span></li>
+			<li><i class="fa fa-fw fa-gears"></i>Computer: <span>{{computer}}</span></li>
+			<li><i class="fa fa-fw fa-user"></i>Owner: <span>{{owner}}</span></li>
+		</ul>
+	</div>
+
+	<span class="notification" compile="notification"></span>
+
+	<ul id="sidebar" class="animated slideInLeft">
+		<!--<li><i class="fa fa-2x fa-fw allsky-constellation" id="overlayBtn" title="Show constellations overlay" ng-click="toggleOverlay()" ng-class="{'active': showOverlay}"></i></li>-->
+		<li><a href="https://www.youtube.com/channel/UCS-aqYOr1_mHHuCwTJm1SHg" title="Allsky Timelapses"><i class="fa fa-2x fa-fw fa-youtube-play"></i></a></li>
+		<li><i class="fa fa-2x fa-fw fa-camera" title="Information about the camera" ng-click="toggleInfo()" ng-class="{'active': showInfo}" style="margin-top: 5px; font-size: 1.9em"></i></li>
+                <li><a href="https://www.zalama.net/euroblitz/Web/eb_narrow.php" title="Muurame Lightning Station"><i class="fa fa-2x fa-fw fa-bolt"></i></a></li>
+                <li><a href="https://mixerboy24.fi" title="Mixerboy24 Website"><i class="fa fa-2x fa-fw fa-globe"></i></a></li>
+                <li><a href="https://localghost.fi" title="LocalghostFI Website"><i class="fa fa-2x fa-fw fa-globe"></i></a></li>
+               <li><a href="https://www.facebook.com/muurameallsky" title="Allsky Facebook Page"><i class="fa fa-2x fa-fw fa-facebook-official"></i></a></li>
+               <li><a href="https://status.muurameallsky.fi/" title="Status Page"><i class="fa fa-2x fa-fw fa-info"></i></a></li>
+	</ul>
+
+
+	<div id="imageContainer">
+		<div id="starmap_container" ng-show="showOverlay==true">
+			<div id="starmap"></div>
+		</div>
+		<div id="live_container">
+		</div>
+	</div>
+<br>
+
+<footer>
+  Copyright &copy; 2019-<script>document.write(new Date().getFullYear())</script> <a href="https://localghost.fi" style="color: #FF7200;">LocalghostFI</a> / <a href="https://mixerboy24.fi" style="color: #FF7200";>Mixerboy24</a><br>Status: Coming Soon<br>
+
+<a href="mailto:admin@muurameallsky.fi?Subject=[Allsky Contact] <type your subject>" style="color: #FF7200;">Contact Allsky Admin [Email]</a><br>
+ Sosial Media: #LGFIAllsky / #Mb24Allsky<br> 
+
+</footer>
+
+</body>
+</html>
